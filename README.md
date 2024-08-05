@@ -13,3 +13,4 @@ Make sure to have a webcam on your device.
 ```
 python run.py
 ```
+To stop the program, press the 'c' key.
