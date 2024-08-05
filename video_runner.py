@@ -4,6 +4,7 @@ import time
 import cv2
 
 import apriltag_detector
+import draw
 
 """
 Changes the AprilTag detector's used family.
@@ -37,7 +38,17 @@ def run_stream():
         frame = vs.read()
         frame = imutils.resize(frame, width=500)
 
-        apriltag_detector.draw_corners_around_image(frame)
+        results = apriltag_detector.find_apriltags(frame)
+
+        draw.use_image(frame)
+        for result in results:
+            draw.use_result(result)
+            draw.border()
+            draw.center_circle()
+            draw.tag_family()
+            draw.center_line()
+            draw.center_line_text()
+
         cv2.imshow("Frame", frame)
         key = cv2.waitKey(1) & 0xFF
 
