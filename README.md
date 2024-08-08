@@ -8,9 +8,12 @@ Python program to detect AprilTags and their distance from the camera lens.
 pip install -r requirements.txt
 ```
 ## Usage guide
-Activate the detector by running.<br>
-Make sure to have a webcam on your device.
+Activate the detector by running:<br>
 ```
-python run.py
+python run.py [optional: -d/--distance <distance_in_mm>]
 ```
-To stop the program, press the 'c' key.
+Distance is initial calibration distance for the april tag.<br>
+Make sure to have a webcam on your device.<br>
+To stop the program, press the 'c' key.<br>
+<br>
+Additional guides are given while running the code.
