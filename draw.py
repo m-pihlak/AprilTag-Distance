@@ -1,5 +1,6 @@
 import cv2
 import calculate
+import numpy as np
 
 """
 Sets the image which pictures are drawn on.
@@ -18,7 +19,6 @@ def use_result(r):
     result = r
     corners = calculate_corners()
     center = (int(result.center[0]), int(result.center[1]))
-    distance = calculate.distance(corners, center, width, height)
 
 """
 From the AprilTag detector's results
@@ -42,27 +42,28 @@ N(int(x), int(y))
 def calculate_corners():
     corners = []
     for corner in result.corners:
-        corners.append((int(corner[0]), 
-                        int(corner[1])))
-
-    return corners + [corners[0]]
+        corners.append( (int(corner[0]),
+                         int(corner[1])) )
+    return np.array(corners, dtype=np.int32)
 
 """
 Draws a border around the AprilTags in the given image.
 """
 def border():
-    for i, corner1 in enumerate(corners[:-1]):
-        corner2 = corners[i + 1]
+    border_corners = np.append(corners, [corners[0]], 0)
+    for i, corner1 in enumerate(border_corners[:-1]):
+        corner2 = border_corners[i + 1]
         cv2.line(image, 
                 corner1, corner2,
                 (0, 255, 0), 2)
+    
 
 
 """
 Draws a circle on given coordinates
 """
 def center_circle():
-    cv2.circle(image, 
+    cv2.circle( image, 
                 center,
                 5, (0, 0, 255), -1)
 
@@ -80,17 +81,35 @@ Draws lines connecting results
 """
 def center_line():
     cv2.line(image, 
-            bottom_center, 
-            center,
-            (0, 0, 255), 2)
+             bottom_center, 
+             center,
+             (0, 0, 255), 2)
 
 """
 Writes distance on center line.
 """
-def center_line_text():
+def distance_text():
     cv2.putText(image,
-                f"Distance: {distance}m",
-                ((center[0] - bottom_center[0]) // 2 + bottom_center[0],
-                (center[1] - bottom_center[1]) // 2 + bottom_center[1]),
+                f"Distance: {round(calculate.apriltag_distance(result.tag_id, corners, center))}mm",
+                ((center[0] + bottom_center[0]) // 2,
+                (center[1] + bottom_center[1]) // 2),
                 cv2.FONT_HERSHEY_SIMPLEX, 0.5,
                 (0, 0, 255), 2 )
+
+"""
+Calibrates apriltag distance calculator
+"""
+def calibrate(dist):
+    # Shows the April Tag cutout.
+    """
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    mask = np.zeros(image.shape[:2], dtype="uint8")
+
+    cv2.fillPoly(mask, 
+                 [np.array(corners, dtype=np.int32)], 
+                 (255, 255, 255))
+    
+    masked = cv2.bitwise_and(gray, gray, mask=mask)
+    cv2.imshow("masked", masked)
+    """
+    calculate.calibrate(result.tag_id, dist, corners, center)
