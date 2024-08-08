@@ -47,13 +47,43 @@ def run_stream():
             draw.center_circle()
             draw.tag_family()
             draw.center_line()
-            draw.center_line_text()
+            draw.distance_text()
 
         cv2.imshow("Frame", frame)
         key = cv2.waitKey(1) & 0xFF
 
         if key == ord('c'):
             break
+
+"""
+Calibrates values for apriltag distance.
+"""
+def calibrate_values(dist):
+    print("[INFO] calibrating video stream...")
+    print("[INFO] make sure apriltag id is april tag size in mm")
+    print(f"[INFO] place apriltag {dist}mm away")
+    print("[INFO] press 'r' key when ready.")
+    while True:
+        frame = vs.read()
+        frame = imutils.resize(frame, width=500)
+
+        results = apriltag_detector.find_apriltags(frame)
+
+        draw.use_image(frame)
+        
+        if (len(results) > 0):
+            result = results[0]
+            draw.use_result(result)
+            draw.calibrate(dist)
+            draw.border()
+            draw.center_circle()
+
+        cv2.imshow("Frame", frame)
+        key = cv2.waitKey(1) & 0xFF
+
+        if key == ord('r'):
+            break
+
 
 """
 Cleans up after the video stream.
@@ -63,11 +93,20 @@ def stop_stream():
     cv2.destroyAllWindows()
     vs.stop()
 
+
 """
-Runs all the video stream methods in order (except setting the tag family).
+Calibrates the april tag detector distance calculator.
+"""
+def calibrate(dist):
+    start_stream()
+    calibrate_values(dist)
+    stop_stream()
+
+
+"""
+Runs all the video stream methods in order.
 """
 def stream():
-    create_detector()
     start_stream()
     run_stream()
     stop_stream()
