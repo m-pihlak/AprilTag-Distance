@@ -5,10 +5,10 @@ import video_runner
 ap = argparse.ArgumentParser()
 ap.add_argument("-f", "--family", type=str,
                 default="tag36h11",
-                help="AprilTag family")
+                help="April Tag family")
 ap.add_argument("-d", "--distance", type=int,
                 default=300,
-                help="AprilTag calibration distance in mm")
+                help="April Tag calibration distance in mm")
 args = vars(ap.parse_args())
 
 def main():

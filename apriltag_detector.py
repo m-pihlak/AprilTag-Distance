@@ -2,21 +2,21 @@ from pupil_apriltags import Detector
 import cv2
 
 """
-Changes the AprilTag detector's used family.
+Changes the April Tag detector's used family.
 """
 def use_family(family):
     global apriltag_family
     apriltag_family = family
 
 """
-Using given parameters, initializes to AprilTag detector
+Using given parameters, initializes to April Tag detector
 """
 def create_detector():
     global detector
     detector = Detector(families=apriltag_family)
 
 """
-From the AprilTag detector's results
+From the April Tag detector's results
 creates a list of corners which is easy
 to create lines between in a single loop.
 
@@ -61,9 +61,9 @@ def write_text(image, X, Y, text):
                 (0, 255, 0), 2)
 
 """
-Finds AprilTags in image.
+Finds April Tags in image.
 Uses the detector created with create_detector() and 
-detects AprilTags from the family defined with use_family(family),
+detects April Tags from the family defined with use_family(family),
 or "tag36h11", if not defined.
 """
 def find_apriltags(image):

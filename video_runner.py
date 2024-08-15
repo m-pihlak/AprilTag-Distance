@@ -7,17 +7,17 @@ import apriltag_detector
 import draw
 
 """
-Changes the AprilTag detector's used family.
+Changes the April Tag detector's used family.
 """
 def use_family(family):
-    print("[INFO] setting AprilTag family...")
+    print("[INFO] setting April Tag family...")
     apriltag_detector.use_family(family)
 
 """
-Creates the AprilTag detector.
+Creates the April Tag detector.
 """
 def create_detector():
-    print("[INFO] creating AprilTag detector...")
+    print("[INFO] creating April Tag detector...")
     apriltag_detector.create_detector()
 
 """
@@ -56,12 +56,12 @@ def run_stream():
             break
 
 """
-Calibrates values for apriltag distance.
+Calibrates values for April Tag distance.
 """
 def calibrate_values(dist):
     print("[INFO] calibrating video stream...")
-    print("[INFO] make sure apriltag id is april tag size in mm")
-    print(f"[INFO] place apriltag {dist}mm away")
+    print("[INFO] make sure April Tag id is April Tag size in mm")
+    print(f"[INFO] place April Tag {dist}mm away")
     print("[INFO] press 'r' key when ready.")
     while True:
         frame = vs.read()
@@ -95,7 +95,7 @@ def stop_stream():
 
 
 """
-Calibrates the april tag detector distance calculator.
+Calibrates the April Tag detector distance calculator.
 """
 def calibrate(dist):
     start_stream()

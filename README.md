@@ -1,5 +1,5 @@
 # AprilTag-Distance
-Python program to detect AprilTags and their distance from the camera lens.
+Python program to detect April Tags and their distance from the camera lens.
 
 ## Guide to initalizing
 1. (optional) Create a pyvenv

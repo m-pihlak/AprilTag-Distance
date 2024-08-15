@@ -21,7 +21,7 @@ def use_result(r):
     center = (int(result.center[0]), int(result.center[1]))
 
 """
-From the AprilTag detector's results
+From the April Tag detector's results
 creates a list of corners which is easy
 to create lines between in a single loop.
 
@@ -47,7 +47,7 @@ def calculate_corners():
     return np.array(corners, dtype=np.int32)
 
 """
-Draws a border around the AprilTags in the given image.
+Draws a border around the April Tags in the given image.
 """
 def border():
     border_corners = np.append(corners, [corners[0]], 0)
@@ -97,7 +97,7 @@ def distance_text():
                 (0, 0, 255), 2 )
 
 """
-Calibrates apriltag distance calculator
+Calibrates April Tag distance calculator
 """
 def calibrate(dist):
     # Shows the April Tag cutout.
